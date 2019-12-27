@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.tiger.springlearning.bean.InstantiationTracingBeanPostProcessor"/>
+
+    <!-- 构造函数创建bean -->
+    <bean id="exampleBean" class="com.tiger.springlearning.bean.ExampleBean"/>
+    <!-- 通过工厂方法-->
+    <bean id="clientService" class="com.tiger.springlearning.bean.ClientService" factory-method="createInstance"/>
+
+    <!-- 方法注入 -->
+    <bean id="myCommand" class="com.tiger.springlearning.bean.AsyncCommand" scope="prototype"/>
+
+    <bean id="commandManager" class="com.tiger.springlearning.bean.CommandManager">
+        <lookup-method name="createCommand" bean="myCommand"/>
+    </bean>
+
+</beans>

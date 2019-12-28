@@ -1,30 +1,22 @@
-package tiger.redis.dao;
+package tiger.redis.dao.redis;
 
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName RedisBaseDaoImpl
+ * @ClassName RedisBaseHashDaoImpl
  * @Description TODO
  * @Author tiger
- * @Date 2019/12/27 22:20
+ * @Date 2019/12/28 22:13
  * @Version 1.0
  **/
-public class RedisBaseDaoImpl<K, V, HK, HV> implements RedisBaseDao<K, V, HK, HV> {
-    @Override
-    public void set(RedisTemplate<K, V> redisTemplate, K key, V value) {
-        redisTemplate.opsForValue().set(key, value);
-    }
-
-    @Override
-    public V get(RedisTemplate<K, V> redisTemplate, K key) {
-        return redisTemplate.opsForValue().get(key);
-    }
-
+@Component
+public class RedisBaseHashDaoImpl<K, V, HK, HV> implements RedisBaseHashDao<K, V, HK, HV> {
     @Override
     public void hmset(RedisTemplate<K, V> redisTemplate, K key, Map<HK, HV> map) {
         redisTemplate.opsForHash().putAll(key, map);
@@ -42,10 +34,8 @@ public class RedisBaseDaoImpl<K, V, HK, HV> implements RedisBaseDao<K, V, HK, HV
     }
 
     @Override
-    public void hdel(RedisTemplate<K, V> redisTemplate, K key, HK... hks) {
+    public Long hdel(RedisTemplate<K, V> redisTemplate, K key, HK... hks) {
         HashOperations<K, HK, HV> hashOperations = redisTemplate.opsForHash();
-        hashOperations.delete(key, hks);
+       return hashOperations.delete(key, hks);
     }
-
-
 }

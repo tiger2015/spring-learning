@@ -1,5 +1,6 @@
 package tiger.redis.config;
 
+import io.lettuce.core.ClientOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -38,7 +39,9 @@ public class RedisConnectionConfig {
     @Bean
     public LettucePoolingClientConfiguration lettucePoolingClientConfiguration(JedisPoolConfig jedisPoolConfig) {
         LettucePoolingClientConfiguration clientConfiguration = LettucePoolingClientConfiguration.builder()
-                .poolConfig(jedisPoolConfig).build();
+                .poolConfig(jedisPoolConfig)
+                .clientOptions(ClientOptions.builder().build())
+        .build();
         return clientConfiguration;
     }
 

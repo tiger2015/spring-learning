@@ -18,8 +18,10 @@ public class RedisApplication {
         ApplicationContext context = new AnnotationConfigApplicationContext(RedisTemplateConfig.class);
         StringRedisTemplate redisTemplate = context.getBean(StringRedisTemplate.class);
         RedisBaseSetDao<String, String> redisBaseSetDao = context.getBean(RedisBaseSetDaoImpl.class);
-        Long test = redisBaseSetDao.sadd(redisTemplate, "test", "1");
-        log.info("result:{}", test);
+        // Long test = redisBaseSetDao.sadd(redisTemplate, "test", "5", "5");
+        // log.info("result:{}", test);
+        Long size = redisBaseSetDao.scard(redisTemplate, "test");
+        log.info("size:{}", size);
 
     }
 }

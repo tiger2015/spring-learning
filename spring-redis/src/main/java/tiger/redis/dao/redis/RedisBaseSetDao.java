@@ -13,6 +13,13 @@ import java.util.Set;
  * @Version 1.0
  **/
 public interface RedisBaseSetDao<K, V> {
+    /**
+     *
+     * @param redisTemplate
+     * @param key
+     * @param values
+     * @return 返回添加成功的元素的数目
+     */
     Long sadd(RedisTemplate<K, V> redisTemplate, K key, V... values);
 
     Long srem(RedisTemplate<K, V> redisTemplate, K key, V... values);

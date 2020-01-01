@@ -1,8 +1,11 @@
 package tiger.redis.dao.redis;
 
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @Date 2020/1/1 21:59
  * @Version 1.0
  **/
+@Component
 public  class RedisBaseCommonDaoImpl<K, V> implements RedisBaseCommonDao<K, V> {
 
     /**
@@ -40,13 +44,13 @@ public  class RedisBaseCommonDaoImpl<K, V> implements RedisBaseCommonDao<K, V> {
 
     /**
      * 删除key
-     * @param redisTemplatem
+     * @param redisTemplate
      * @param keys
      * @return
      */
     @Override
-    public Long delete(RedisTemplate<K, V> redisTemplatem, K... keys) {
-        return redisTemplatem.delete(Arrays.asList(keys));
+    public Long delete(RedisTemplate<K, V> redisTemplate, K... keys) {
+        return redisTemplate.delete(Arrays.asList(keys));
     }
 
     /**
@@ -58,5 +62,10 @@ public  class RedisBaseCommonDaoImpl<K, V> implements RedisBaseCommonDao<K, V> {
     @Override
     public Long getExpire(RedisTemplate<K, V> redisTemplate, K key) {
         return redisTemplate.getExpire(key);
+    }
+
+    @Override
+    public List<Object> redisPipeline(RedisTemplate<K, V> redisTemplate, RedisCallback<Object> callback) {
+       return redisTemplate.executePipelined(callback);
     }
 }

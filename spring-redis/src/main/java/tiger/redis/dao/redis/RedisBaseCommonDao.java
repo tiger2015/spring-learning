@@ -1,7 +1,9 @@
 package tiger.redis.dao.redis;
 
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,4 +22,6 @@ public interface RedisBaseCommonDao<K, V> {
     Long delete(RedisTemplate<K, V> redisTemplatem, K... keys);
 
     Long getExpire(RedisTemplate<K,V> redisTemplate, K key);
+
+    List<Object> redisPipeline(RedisTemplate<K,V> redisTemplate, RedisCallback<Object> callback);
 }

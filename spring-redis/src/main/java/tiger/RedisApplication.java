@@ -8,12 +8,15 @@ import tiger.redis.config.RedisTemplateConfig;
 import tiger.redis.dao.redis.RedisBaseSetDao;
 import tiger.redis.dao.redis.RedisBaseSetDaoImpl;
 
+import java.io.IOException;
+import java.util.Set;
+
 /**
  * Hello world!
  */
 @Slf4j
 public class RedisApplication {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.setProperty("spring.profiles.active", "standalone");
         ApplicationContext context = new AnnotationConfigApplicationContext(RedisTemplateConfig.class);
         StringRedisTemplate redisTemplate = context.getBean(StringRedisTemplate.class);
@@ -21,7 +24,10 @@ public class RedisApplication {
         // Long test = redisBaseSetDao.sadd(redisTemplate, "test", "5", "5");
         // log.info("result:{}", test);
         Long size = redisBaseSetDao.scard(redisTemplate, "test");
+
+        Set<String> test = redisBaseSetDao.sscan(redisTemplate, "test", 500);
         log.info("size:{}", size);
+        log.info("test:{}", test);
 
     }
 }

@@ -20,4 +20,6 @@ public interface RedisBaseZSetDao<K, V> {
     Double zincr(RedisTemplate<K, V> redisTemplate, K key, V value, double increment);
 
     Map<V, Double> zscan(RedisTemplate<K, V> redisTemplate, K key, long count) throws IOException;
+
+    Long zcard(RedisTemplate<K,V> redisTemplate, K key);
 }

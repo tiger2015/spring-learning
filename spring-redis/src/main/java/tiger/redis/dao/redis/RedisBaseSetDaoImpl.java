@@ -56,4 +56,9 @@ public class RedisBaseSetDaoImpl<K, V> implements RedisBaseSetDao<K, V> {
         }
         return result;
     }
+
+    @Override
+    public Long size(RedisTemplate<K, V> redisTemplate, K key) {
+        return redisTemplate.opsForSet().size(key);
+    }
 }

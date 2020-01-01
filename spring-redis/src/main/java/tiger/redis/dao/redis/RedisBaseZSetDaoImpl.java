@@ -60,4 +60,9 @@ public class RedisBaseZSetDaoImpl<K, V> implements RedisBaseZSetDao<K, V> {
         }
         return result;
     }
+
+    @Override
+    public Long zcard(RedisTemplate<K, V> redisTemplate, K key) {
+        return redisTemplate.opsForZSet().zCard(key);
+    }
 }

@@ -20,12 +20,32 @@ import java.util.*;
  **/
 @Component
 public class RedisBaseGeoDaoImpl<K, M> implements RedisBaseGeoDao<K, M> {
+    /**
+     * 添加点的位置
+     * @autho tiger
+     * @description TODO
+     * @date 2020/1/1 22:42
+     * @param redisTemplate
+     * @param key
+     * @param points
+     * @return java.lang.Long
+     **/
     @Override
     public Long geoAdd(RedisTemplate<K, M> redisTemplate, K key, Map<M, Point> points) {
         GeoOperations<K, M> geoOperations = redisTemplate.opsForGeo();
         return geoOperations.add(key, points);
     }
 
+    /**
+     * 获取点的位置
+     * @autho tiger
+     * @description TODO
+     * @date 2020/1/1 22:43
+     * @param redisTemplate
+     * @param key
+     * @param members
+     * @return java.util.Map<M, org.springframework.data.geo.Point>
+     **/
     @Override
     public Map<M, Point> geoHash(RedisTemplate<K, M> redisTemplate, K key, M... members) {
         GeoOperations<K, M> geoOperations = redisTemplate.opsForGeo();
@@ -37,12 +57,34 @@ public class RedisBaseGeoDaoImpl<K, M> implements RedisBaseGeoDao<K, M> {
         return result;
     }
 
+    /**
+     * 删除点
+     * @autho tiger
+     * @description TODO
+     * @date 2020/1/1 22:43
+     * @param redisTemplate
+     * @param key
+     * @param members
+     * @return java.lang.Long
+     **/
     @Override
     public Long geoRem(RedisTemplate<K, M> redisTemplate, K key, M... members) {
         GeoOperations<K, M> geoOperations = redisTemplate.opsForGeo();
         return geoOperations.remove(key, members);
     }
 
+    /**
+     * 查找指定范围内的所有点的信息
+     * @autho tiger
+     * @description TODO
+     * @date 2020/1/1 22:43
+     * @param redisTemplate
+     * @param key
+     * @param point
+     * @param radius
+     * @param geosort
+     * @return java.util.List<org.springframework.data.redis.connection.RedisGeoCommands.GeoLocation < M>>
+     **/
     @Override
     public List<RedisGeoCommands.GeoLocation<M>> radius(RedisTemplate<K, M> redisTemplate, K key, Point point, double radius, GEOSORT geosort) {
         GeoOperations<K, M> geoOperations = redisTemplate.opsForGeo();

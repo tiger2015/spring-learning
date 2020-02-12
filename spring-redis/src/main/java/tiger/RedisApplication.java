@@ -46,5 +46,6 @@ public class RedisApplication {
             return null;
         });
 
+        ((AnnotationConfigApplicationContext) context).close();
     }
 }

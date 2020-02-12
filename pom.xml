@@ -10,7 +10,7 @@
     <version>1.0</version>
     <modules>
         <module>spring-redis</module>
-        <module>xxl-job-learning</module>
+        <module>spring-kafka</module>
     </modules>
 
     <name>spring-learning</name>

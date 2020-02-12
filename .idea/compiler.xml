@@ -7,9 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="spring-kafka" />
         <module name="spring-redis" />
-        <module name="xxl-job-learning" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="xxl-job-learning" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

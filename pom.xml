@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>tiger</groupId>
-    <artifactId>spring-learning</artifactId>
+    <artifactId>spring-projects</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
     <modules>
@@ -13,7 +13,7 @@
         <module>spring-kafka</module>
     </modules>
 
-    <name>spring-learning</name>
+    <name>spring-projects</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 

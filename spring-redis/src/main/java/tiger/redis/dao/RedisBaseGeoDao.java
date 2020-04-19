@@ -1,4 +1,4 @@
-package tiger.redis.dao.redis;
+package tiger.redis.dao;
 
 import org.springframework.data.geo.Point;
 import org.springframework.data.redis.connection.RedisGeoCommands;

@@ -1,10 +1,10 @@
 package tiger.redis.distributelock;
 
 import org.springframework.data.redis.core.RedisTemplate;
-import tiger.redis.dao.redis.RedisBaseCommonDao;
-import tiger.redis.dao.redis.RedisBaseCommonDaoImpl;
-import tiger.redis.dao.redis.RedisBaseValueDao;
-import tiger.redis.dao.redis.RedisBaseValueDaoImpl;
+import tiger.redis.dao.RedisBaseCommonDao;
+import tiger.redis.dao.RedisBaseCommonDaoImpl;
+import tiger.redis.dao.RedisBaseValueDao;
+import tiger.redis.dao.RedisBaseValueDaoImpl;
 
 /**
  * @ClassName RedisLock

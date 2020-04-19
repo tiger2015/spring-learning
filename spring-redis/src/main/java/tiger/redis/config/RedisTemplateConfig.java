@@ -17,7 +17,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  **/
 @Configuration
 @Import(RedisConnectionConfig.class)
-@ComponentScan(basePackages = {"tiger.redis.dao.redis"})
+@ComponentScan(basePackages = {"tiger.redis.dao"})
 @Slf4j
 public class RedisTemplateConfig {
 

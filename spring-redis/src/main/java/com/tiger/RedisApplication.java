@@ -1,12 +1,19 @@
 package com.tiger;
 
 import com.tiger.redis.config.RedisBloomConfig;
+import com.tiger.redis.config.RedisTemplateConfig;
+import com.tiger.redis.dao.RedisBaseCommonDao;
+import com.tiger.redis.dao.RedisBaseCommonDaoImpl;
+import com.tiger.redis.dao.RedisBaseSetDao;
+import com.tiger.redis.dao.RedisBaseSetDaoImpl;
 import io.rebloom.client.Client;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * Hello world!
@@ -14,18 +21,15 @@ import java.io.IOException;
 @Slf4j
 public class RedisApplication {
     public static void main(String[] args) throws IOException {
-        System.setProperty("spring.profiles.active", "standalone");
+        System.setProperty("spring.profiles.active", "sentinel");
 
         //================
-        /**
         ApplicationContext context = new AnnotationConfigApplicationContext(RedisTemplateConfig.class);
         StringRedisTemplate redisTemplate = context.getBean(StringRedisTemplate.class);
         RedisBaseSetDao<String, String> redisBaseSetDao = context.getBean(RedisBaseSetDaoImpl.class);
-        // Long test = redisBaseSetDao.sadd(redisTemplate, "test", "5", "5");
-        // log.info("result:{}", test);
-        Long size = redisBaseSetDao.scard(redisTemplate, "test");
+        Long size = redisBaseSetDao.scard(redisTemplate, "set");
 
-        Set<String> test = redisBaseSetDao.sscan(redisTemplate, "test", 500);
+        Set<String> test = redisBaseSetDao.sscan(redisTemplate, "set", 500);
         log.info("size:{}", size);
         log.info("test:{}", test);
 
@@ -42,11 +46,15 @@ public class RedisApplication {
         });
 
         ((AnnotationConfigApplicationContext) context).close();
-         **/
 
+
+        //=====================
+        //====== bloom filter test
+        /**
         ApplicationContext context = new AnnotationConfigApplicationContext(RedisBloomConfig.class);
         Client client = context.getBean(Client.class);
         client.add("users","user3");
         log.info("exists:{}", client.exists("users","user123"));
+         **/
     }
 }

@@ -78,6 +78,7 @@ public class RedisConnectionConfig {
         RedisSentinelConfiguration sentinelConfiguration = new RedisSentinelConfiguration();
         sentinelConfiguration.setSentinels(sentinelNodeList); // 哨兵
         sentinelConfiguration.setMaster(master);
+        sentinelConfiguration.setPassword(RedisPassword.of(password));
         LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(sentinelConfiguration, clientConfiguration);
         return lettuceConnectionFactory;
     }
@@ -114,8 +115,9 @@ public class RedisConnectionConfig {
         this.master = master;
     }
 
-    @Value("${redis.sentinel.nodes:")
+    @Value("${redis.sentinel.nodes:}")
     public void setSentinelNodeList(String nodes) {
+        log.info("sentinel nodes:{}", nodes);
         this.sentinelNodeList = new ArrayList<>();
         String[] split = nodes.split(",");
         for (String node : split) {

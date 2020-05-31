@@ -15,7 +15,8 @@ import java.util.concurrent.TimeUnit;
  * @Version 1.0
  **/
 @Component
-public class RedisBaseListDaoImpl<K, V>  implements RedisBaseListDao<K, V> {
+public class RedisBaseListDaoImpl<K, V> implements RedisBaseListDao<K, V> {
+
     @Override
     public Long lpush(RedisTemplate<K, V> redisTemplate, K key, V... values) {
         ListOperations<K, V> listOperations = redisTemplate.opsForList();

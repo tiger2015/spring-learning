@@ -1,6 +1,7 @@
 package com.tiger.redis.config;
 
 import io.lettuce.core.ClientOptions;
+import io.lettuce.core.ReadFrom;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -43,6 +44,7 @@ public class RedisConnectionConfig {
         LettucePoolingClientConfiguration clientConfiguration = LettucePoolingClientConfiguration.builder()
                 .poolConfig(jedisPoolConfig)
                 .clientOptions(ClientOptions.builder().build())
+                .readFrom(ReadFrom.SLAVE_PREFERRED) // 优先从slave中读取
         .build();
         return clientConfiguration;
     }
@@ -57,6 +59,7 @@ public class RedisConnectionConfig {
         standaloneConfiguration.setPassword(RedisPassword.of(password));
         LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(standaloneConfiguration, clientConfiguration);
         lettuceConnectionFactory.afterPropertiesSet();
+        log.info("create redis standalone connection factory");
         return lettuceConnectionFactory;
     }
 
@@ -108,6 +111,7 @@ public class RedisConnectionConfig {
             String[] subSplit = node.split(":");
             this.redisNodeList.add(new RedisNode(subSplit[0], Integer.parseInt(subSplit[1].trim())));
         }
+        log.info("redis.cluster.nodes:{}", nodes);
     }
 
     @Value("${redis.sentinel.master:master}")

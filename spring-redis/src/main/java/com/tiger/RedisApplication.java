@@ -2,10 +2,7 @@ package com.tiger;
 
 import com.tiger.redis.config.RedisBloomConfig;
 import com.tiger.redis.config.RedisTemplateConfig;
-import com.tiger.redis.dao.RedisBaseCommonDao;
-import com.tiger.redis.dao.RedisBaseCommonDaoImpl;
-import com.tiger.redis.dao.RedisBaseSetDao;
-import com.tiger.redis.dao.RedisBaseSetDaoImpl;
+import com.tiger.redis.dao.*;
 import io.rebloom.client.Client;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
@@ -21,10 +18,13 @@ import java.util.Set;
 @Slf4j
 public class RedisApplication {
     public static void main(String[] args) throws IOException {
-        System.setProperty("spring.profiles.active", "sentinel");
+        System.setProperty("spring.profiles.active", "standalone");
 
         //================
         ApplicationContext context = new AnnotationConfigApplicationContext(RedisTemplateConfig.class);
+
+
+        /**
         StringRedisTemplate redisTemplate = context.getBean(StringRedisTemplate.class);
         RedisBaseSetDao<String, String> redisBaseSetDao = context.getBean(RedisBaseSetDaoImpl.class);
         Long size = redisBaseSetDao.scard(redisTemplate, "set");
@@ -46,7 +46,7 @@ public class RedisApplication {
         });
 
         ((AnnotationConfigApplicationContext) context).close();
-
+        **/
 
         //=====================
         //====== bloom filter test
@@ -56,5 +56,9 @@ public class RedisApplication {
         client.add("users","user3");
         log.info("exists:{}", client.exists("users","user123"));
          **/
+
+
+        RedisListOperations<String,String> listOperations = context.getBean(RedisListOperations.class);
+        listOperations.add("list", "l1");
     }
 }

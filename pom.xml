@@ -12,6 +12,8 @@
         <module>spring-redis</module>
         <module>spring-kafka</module>
         <module>dubbo-service-provider</module>
+        <module>dubbo-service-consumer</module>
+        <module>dubbo-service</module>
     </modules>
 
     <name>spring-projects</name>
